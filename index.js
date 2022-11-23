@@ -21,16 +21,18 @@ const selectFromList = (type, list) => {
 }
 
 function app() {
-    let users = [{userName: "Calle", userId: "2"}, {userName: "Bert", userId: "3"}]
-    let companies = [{companyName: "Tedsys", companyId: "5"}]
+    let users = []
+    let companies = []
     let running = true
 
     while (running) {
+        console.log()
         console.log("What would you like to do?")
         console.log("Press 1 to add a user")
         console.log("Press 2 to add a company")
         console.log("Press 3 to add user to a company")
-        console.log("Press 4 to exit")
+        console.log("Press 4 to see listed users and companies")
+        console.log("Press 5 to exit")
 
         const choice = prompt()
         switch (choice) {
@@ -70,6 +72,17 @@ function app() {
                 break;
             }
             case "4": {
+                console.log("##### USERS #####");
+                users.forEach(user => console.log(`${user.userName}`));
+
+                console.log("##### COMPANIES #####");
+                companies.forEach(company => {
+                    console.log(company.companyName);
+                    company.users && console.log(`Users: ${company.users.map(user => user.userName).join(", ")}`);
+                })
+                break;
+            }
+            case "5": {
                 running = false;
                 break;
             }
