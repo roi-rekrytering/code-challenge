@@ -14,7 +14,7 @@ function app() {
 
         const choice = prompt()
         if (choice === "1") {
-            const userName = prompt("Enter a username: ")
+            const userName = prompt("Enter a username: ");
             const isUniqueName = !users.some(user => user.userName === userName);
 
             if (isUniqueName) {
@@ -25,11 +25,11 @@ function app() {
             }
 
         } else if (choice === "2") {
-            var companyName = prompt("Enter company name: ")
-            var companyId = 1
+            const companyName = prompt("Enter company name: ");
+            const companyId = uuidv4();
             companies.push({companyName, companyId})
         } else if (choice === "3") {
-            running = false
+            running = false;
         }
     }
 }
