@@ -1,4 +1,5 @@
 const prompt = require('prompt-sync')({sigint: true})
+const { v4: uuidv4 } = require('uuid');
 
 function app () {
   var users = []
@@ -14,7 +15,7 @@ function app () {
     var choice = prompt()
     if(choice === "1") {
       var userName = prompt("Enter a username: ")
-      var userId = 1
+      var userId = uuidv4();
       users.push({userName, userId})
     } else if(choice === "2") {
       var companyName = prompt("Enter company name: ")
