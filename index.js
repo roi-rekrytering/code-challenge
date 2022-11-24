@@ -1,93 +1,53 @@
-const prompt = require('prompt-sync')({sigint: true})
-const {v4: uuidv4} = require('uuid');
+import promptSync from 'prompt-sync';
+import {printMenu, printUserAndCompanies} from "./helpers/print-helper.js";
+import {
+    promptAddUserToCompany,
+    promptCreateCompany,
+    promptCreateUser,
+} from "./helpers/prompt-helper.js";
 
-const selectFromList = (type, list) => {
-    let index = undefined;
-    let selected = false;
+const prompt = promptSync({sigint: true});
 
-    list.forEach((user, index) => console.log(`${index + 1}: ${user[`${type}Name`]}`));
+const CHOICES = {
+    CREATE_USER: "1",
+    CREATE_COMPANY: "2",
+    ADD_USER_TO_COMPANY: "3",
+    PRINT: "4",
+    EXIT: "5",
+};
 
-    while (!selected) {
-        const value = prompt(`Select ${type} (By number): `);
-
-        if (Number(value) && value <= list.length) {
-            index = value - 1;
-            selected = true;
-        } else {
-            console.log(`You have not selected a correct ${type}`);
-        }
-    }
-    return list[index];
-}
-
-function app() {
-    let users = []
-    let companies = []
-    let running = true
+const app = () => {
+    const users = [];
+    const companies = [];
+    let running = true;
 
     while (running) {
-        console.log()
-        console.log("What would you like to do?")
-        console.log("Press 1 to add a user")
-        console.log("Press 2 to add a company")
-        console.log("Press 3 to add user to a company")
-        console.log("Press 4 to see listed users and companies")
-        console.log("Press 5 to exit")
+        printMenu();
 
-        const choice = prompt()
+        const choice = prompt();
         switch (choice) {
-            case "1": {
-                const userName = prompt("Enter a username: ");
-                const isUniqueName = !users.some(user => user.userName === userName);
-
-                if (isUniqueName) {
-                    const userId = uuidv4();
-                    users.push({userName, userId});
-                } else {
-                    console.log("Username already exists, please try again");
-                }
+            case CHOICES.CREATE_USER: {
+                promptCreateUser(users, prompt);
                 break;
             }
-            case "2": {
-                const companyName = prompt("Enter company name: ");
-                const companyId = uuidv4();
-
-                companies.push({companyName, companyId});
+            case CHOICES.CREATE_COMPANY: {
+                promptCreateCompany(companies, prompt);
                 break;
             }
-            case "3": {
-                if (users.length && companies.length) {
-
-                    const user = selectFromList("user", users);
-                    const company = selectFromList("company", companies);
-
-                    company.users = [...company.users || [], user];
-
-                    console.log(`${user.userName} added to ${company.companyName}`);
-                    console.log();
-                } else {
-                    !users.length && console.log("No existing users");
-                    !companies.length && console.log("No existing companies");
-                }
+            case CHOICES.ADD_USER_TO_COMPANY: {
+                promptAddUserToCompany(users, companies, prompt);
                 break;
             }
-            case "4": {
-                console.log("##### USERS #####");
-                users.forEach(user => console.log(`${user.userName}`));
-
-                console.log("##### COMPANIES #####");
-                companies.forEach(company => {
-                    console.log(company.companyName);
-                    company.users && console.log(`Users: ${company.users.map(user => user.userName).join(", ")}`);
-                })
+            case CHOICES.PRINT: {
+                printUserAndCompanies(users, companies);
                 break;
             }
-            case "5": {
+            case CHOICES.EXIT: {
                 running = false;
                 break;
             }
         }
     }
-}
+};
 
-app()
+app();
