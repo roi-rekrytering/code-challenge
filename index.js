@@ -1,29 +1,53 @@
-const prompt = require('prompt-sync')({sigint: true})
+import promptSync from 'prompt-sync';
+import {printMenu, printUserAndCompanies} from "./helpers/print-helper.js";
+import {
+    promptAddUserToCompany,
+    promptCreateCompany,
+    promptCreateUser,
+} from "./helpers/prompt-helper.js";
 
-function app () {
-  var users = []
-  var companies = []
-  var running = true
+const prompt = promptSync({sigint: true});
 
-  while (running) {
-    console.log("What would you like to do?")
-    console.log("Press 1 to add a user")
-    console.log("Press 2 to add a company")
-    console.log("Press 3 to exit")
+const CHOICES = {
+    CREATE_USER: "1",
+    CREATE_COMPANY: "2",
+    ADD_USER_TO_COMPANY: "3",
+    PRINT: "4",
+    EXIT: "5",
+};
 
-    var choice = prompt()
-    if(choice === "1") {
-      var userName = prompt("Enter a username: ")
-      var userId = 1
-      users.push({userName, userId})
-    } else if(choice === "2") {
-      var companyName = prompt("Enter company name: ")
-      var companyId = 1
-      companies.push({companyName, companyId})
-    } else if(choice === "3") {
-      running = false
+const app = () => {
+    const users = [];
+    const companies = [];
+    let running = true;
+
+    while (running) {
+        printMenu();
+
+        const choice = prompt();
+        switch (choice) {
+            case CHOICES.CREATE_USER: {
+                promptCreateUser(users, prompt);
+                break;
+            }
+            case CHOICES.CREATE_COMPANY: {
+                promptCreateCompany(companies, prompt);
+                break;
+            }
+            case CHOICES.ADD_USER_TO_COMPANY: {
+                promptAddUserToCompany(users, companies, prompt);
+                break;
+            }
+            case CHOICES.PRINT: {
+                printUserAndCompanies(users, companies);
+                break;
+            }
+            case CHOICES.EXIT: {
+                running = false;
+                break;
+            }
+        }
     }
-  }
-}
+};
 
-app()
+app();
