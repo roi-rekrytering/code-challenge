@@ -2,13 +2,18 @@
   "name": "code-challenge",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "prompt-sync": "^4.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.6",
+    "vitest": "^0.34.6"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "start": "node index.js"
   },
   "author": "",
