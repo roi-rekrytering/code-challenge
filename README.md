@@ -18,4 +18,4 @@ This is a list of requirements which includes both bug fixes and some feature de
 The other part of this challenge is changing the code to make it both scalable and testable. It's up to you how you achieve this, but keep in mind that it should be easily testable (unit/integration tests) and allow us to add a feature without changing any existing code.
 
 ### Final note
-The program was built with an older version of javascript to lower the entry level barrier. There is nothing in this test that keeps you from completely rebuilding it with a newer version (like ES6)), as long as you fulfill the requirements. Good luck!
+The program was built with an older version of javascript to lower the entry level barrier. There is nothing in this test that keeps you from completely rebuilding it with a newer version (like ES6 and/or Typescript), as long as you fulfill the requirements. Good luck!
