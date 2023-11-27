@@ -1,0 +1,15 @@
+module.exports = {
+  ENTER_USERNAME: 'Enter a username:',
+  ENTER_COMPANY: "Enter company name:",
+  COMPANY_NAME: 'company name',
+  USER_NAME: 'user name',
+  LIST_RELATIONS_USERS: 'users:\n',
+  MENU_TITLE: '\nWhat would you like to do?\n',
+  MENU_ITEM_ADD_USER: 'Add user',
+  MENU_ITEM_ADD_COMPANY: 'Add company',
+  MENU_ITEM_ATTACH_USER_TO_COMPANY: 'Attach User to Company',
+  MENU_ITEM_LIST_USERS: 'List Users',
+  MENU_ITEM_LIST_COMPANIES: 'List Companies',
+  MENU_ITEM_LIST_COMPANIES_USERS: 'List Companies and users',
+  MENU_ITEM_EXIT: 'Exit',
+}
