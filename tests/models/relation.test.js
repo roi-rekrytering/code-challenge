@@ -3,37 +3,36 @@ const sinon = require('sinon');
 const NameCollection = require('./../../models/namemap');
 const Relation = require('./../../models/relation');
 
-const users = new NameCollection();
-const companies = new NameCollection();
-const relation = new Relation();
+let relation;
 
-const COMPANY = 'foobar';
-const USER = 'foobaz';
-const USER2 = 'foobaz2';
+const COMPANY_ID = 1;
+const COMPANY_2_ID = 5;
+const USER_ID = 2;
+const USER_2_ID = 3;
 
 describe('Relation', function () {
-  it('should add a user to a company', function () {
-    companies.add(COMPANY);
-    users.add(USER);
-    const companyId = companies.get(COMPANY);
-    const userId = users.get(USER);
-    relation.add(companyId, userId);
+  beforeEach(function () {
+    relation = new Relation();
+  });
+  it('Should add a user to a company', function () {
+    relation.add(COMPANY_ID, USER_ID);
+    
+    assert.notEmpty(relation.get());
+    assert.lengthOf(relation.get(), 1);
+    assert.lengthOf(relation.get().get(COMPANY_ID), 1);
+  });
+  it('should add two users to a company', function () {
+    relation.add(COMPANY_ID, USER_ID);
+    relation.add(COMPANY_ID, USER_2_ID);
     
     assert.notEmpty(relation.get());
     assert.lengthOf(relation.get(), 1);
   });
-  it('should add two users to a company', function () {
-    companies.add(COMPANY);
-    users.add(USER);
-    users.add(USER2);
-    const companyId = companies.get(COMPANY);
-    const userId = users.get(USER);
-    const userId2 = users.get(USER2);
-    relation.add(companyId, userId);
-    relation.add(companyId, userId2);
-    
+  it('Should add two users to two different companies', function () {
+    relation.add(COMPANY_ID, USER_ID);
+    relation.add(COMPANY_2_ID, USER_2_ID);
+
     assert.notEmpty(relation.get());
-    assert.lengthOf(relation.get(), 1);
-    console.log(relation.get().get(companyId), 2);
+    assert.lengthOf(relation.get(), 2);
   });
 });

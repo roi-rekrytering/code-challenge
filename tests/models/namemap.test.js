@@ -2,13 +2,14 @@ const { assert } = require('chai');
 const sinon = require('sinon');
 const NameCollection = require('./../../models/namemap');
 
-const testMap = new NameCollection();
+let testMap;
 
 const TEST_VALUE = 'foobar';
 const TEST_VALUE2 = 'foobar2';
 
 describe('NameMap', function () {
   beforeEach(function () {
+    testMap = new NameCollection();
   });
 
   it('should add a value and verify it exists', function () {
